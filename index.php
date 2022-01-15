@@ -1,3 +1,9 @@
+<?php
+    require_once('database/requetes.php');
+
+    $videos = getVideos();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,11 +45,12 @@ https://templatemo.com/tm-552-video-catalog
                         </div>
                     </div>
                     
+                    <?php foreach ($videos as $video): ?>
                     <div class="row tm-catalog-item-list">
                         <div class="col-lg-4 col-md-6 col-sm-12 tm-catalog-item">
                             <div class="position-relative tm-thumbnail-container">
                                 <img src="img/tn-01.jpg" alt="Image" class="img-fluid tm-catalog-item-img">    
-                                <a href="video-page.php" class="position-absolute tm-img-overlay">
+                                <a href="video-page.php?videoId=<?= $video->id ?>" class="position-absolute tm-img-overlay">
                                     <i class="fas fa-play tm-overlay-icon"></i>
                                 </a>
                             </div>    
@@ -63,6 +70,7 @@ https://templatemo.com/tm-552-video-catalog
                             </div>
                         </div>
                     </div>
+                    <?php endforeach; ?>
 
                     <!-- Catalog Paging Buttons -->
                     <div>

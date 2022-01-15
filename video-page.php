@@ -1,3 +1,33 @@
+<?php
+
+	extract($_GET);
+	$videoId = strip_tags($videoId); // recuperation de l'id de la video par $get depuis l'index
+	require_once('database/requetes.php');
+
+	$videoNotes = getVideoNotes($videoId); // recuperations de toutes les notes d'une video
+
+	if (!empty($_POST)) {
+		extract($_POST);
+
+		if ((!empty($note)) and (searchNotes($videoId, getIp()) == null)) { // annuler la possibilité que l'utilisateur ait deje voté pour la video
+			$videoNote = insertNote(getIp(), $note, $videoId);
+			$videoNotes = getVideoNotes($videoId);
+		}
+	}
+
+	//fonction de recuperation de l'ip utilisateur 
+	function getIp(){
+		if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+		  $ip = $_SERVER['HTTP_CLIENT_IP'];
+		}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+		  $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		}else{
+		  $ip = $_SERVER['REMOTE_ADDR'];
+		}
+		return $ip;
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,13 +85,15 @@ https://templatemo.com/tm-552-video-catalog
 	                                    <span class="fa fa-star"></span>
 	                                    <span class="fa fa-star"></span>
 	                                </div>
-	                                <span class="h4">50 votes</span>
+	                                <span class="h4"><?= count($videoNotes) ?></span>
 								</div>
-								<h4 class="mb-4"> Notez le travail : </h4>
-								<input type="number" min="1" max="10" class="tm-bg-white px-5 mb-4 d-inline-block tm-text-primary tm-likes-box tm-liked"/>
-								<div>
-									<button class="btn btn-primary p-0 tm-btn-animate tm-btn-download tm-icon-submit"><span>Valider ma note</span></button>	
-								</div>								
+								<form action="" method="post">
+									<h4 class="mb-4"> Notez le travail : </h4>
+									<input name="note" type="number" min="1" max="10" class="tm-bg-white px-5 mb-4 d-inline-block tm-text-primary tm-likes-box tm-liked"/>
+									<div>
+										<button name="submit" class="btn btn-primary p-0 tm-btn-animate tm-btn-download tm-icon-submit"><span>Valider ma note</span></button>	
+									</div>	
+								</form>								
 							</div>
 						</div>
 					</div>
