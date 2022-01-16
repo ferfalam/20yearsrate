@@ -9,7 +9,8 @@
 	if (!empty($_POST)) {
 		extract($_POST);
 
-		if ((!empty($note)) and (searchNotes($videoId, getIp()) == null)) { // annuler la possibilité que l'utilisateur ait deje voté pour la video
+		if ((!empty($note)) and (searchNotes($videoId, getIp()) == null)) { 
+		// annuler la possibilité que l'utilisateur ait deje voté pour la video
 			$videoNote = insertNote(getIp(), $note, $videoId);
 			$videoNotes = getVideoNotes($videoId);
 		}
@@ -46,10 +47,8 @@ https://templatemo.com/tm-552-video-catalog
 
 -->
 <body>
+	<?php require('./nav.html'); ?>
 	<div class="tm-page-wrap mx-auto">
-		
-        <?php require("./header.html"); ?>
-
 		<!-- Page content -->
 		<div class="container-fluid">
 			<div class="mx-auto tm-content-container">
@@ -91,24 +90,18 @@ https://templatemo.com/tm-552-video-catalog
 									<h4 class="mb-4"> Notez le travail : </h4>
 									<input name="note" type="number" min="1" max="10" class="tm-bg-white px-5 mb-4 d-inline-block tm-text-primary tm-likes-box tm-liked"/>
 									<div>
-										<button name="submit" class="btn btn-primary p-0 tm-btn-animate tm-btn-download tm-icon-submit"><span>Valider ma note</span></button>	
+										<button name="submit" class="btn btn-primary p-0 tm-btn-animate tm-btn-download tm-icon-submit"><span>Valider la note</span></button>	
 									</div>	
 								</form>								
 							</div>
 						</div>
 					</div>
 				</main>
-
-                <footer class="row pt-5">
-                    <div class="col-12">
-                        <p class="text-right">Copyright 2020 The Video Catalog Company 
-                        
-                        - Designed by <a href="https://templatemo.com" rel="nofollow" target="_parent">TemplateMo</a></p>
-                    </div>
-                </footer>
 			</div> <!-- .tm-content-container -->
 		</div>
 	</div>
+
+    <?php require("./footer.html"); ?>
 
 	<script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
