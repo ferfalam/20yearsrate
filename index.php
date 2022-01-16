@@ -48,32 +48,41 @@ https://templatemo.com/tm-552-video-catalog
                         </div>
                     </div>
                     
-                    <?php foreach ($videos as $video): ?>
+                    
                     <div class="row tm-catalog-item-list">
+                        <?php foreach ($videos as $video): ?>
                         <div class="col-lg-4 col-md-6 col-sm-12 tm-catalog-item">
                             <div class="position-relative tm-thumbnail-container">
-                                <img src="img/tn-01.jpg" alt="Image" class="img-fluid tm-catalog-item-img">    
+                                <img src="<?= $video->image ?>" alt="Image" class="img-fluid tm-catalog-item-img">    
                                 <a href="video-page.php?videoId=<?= $video->id ?>" class="position-absolute tm-img-overlay">
                                     <i class="fas fa-play tm-overlay-icon"></i>
                                 </a>
                             </div>    
                             <div class="p-4 tm-bg-gray tm-catalog-item-description">
-                                <h3 class="tm-text-primary mb-3 tm-catalog-item-title">Aenean aliquet sapien</h3>
-                                <p class="tm-catalog-item-text">Video thumbnail has a link to another HTML page. 
-                                    Categories <span class="tm-text-secondary">do not need</span> any JS. 
-                                    They are just separated HTML pages. Paging is at the bottom to extend the list as long as you want. 
-                                    This can be a large catalog.</p>
+                                <h3 class="tm-text-primary mb-3 tm-catalog-item-title"> <?= $video->title ?> </h3>
+                                <p class="tm-catalog-item-text"> <?= $video->description ?> </p>
                                 <div class="rate f-right">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
+                                    <?php 
+                                        $videoNotesAVG = getVideoNotesAVG($video->id); // get rate average
+                                        $rate = intval($videoNotesAVG[0]->rate);
+                                    ?>
+                                    <?php for ( $i=1; $i<=10; $i++): ?>
+                                        <?php if ($rate > $i): ?>
+                                            <span class="fa fa-star checked"></span>
+                                            <?php $i++; ?>
+                                        <?php elseif ($rate == $i): ?>
+                                            <span class="fa fa-star-half-alt checked"></span>
+                                            <?php $i++; ?>
+                                        <?php else : ?>
+                                            <span class="far fa-star checked"></span>
+                                            <?php $i++; ?>
+                                        <?php endif?>
+                                    <?php endfor ?>
                                 </div>
                             </div>
                         </div>
+                        <?php endforeach; ?>
                     </div>
-                    <?php endforeach; ?>
 
                     <!-- Catalog Paging Buttons -->
                     <!-- <div>

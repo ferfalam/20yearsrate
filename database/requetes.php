@@ -1,9 +1,9 @@
 <?php
-    function insertVideo($title, $description, $path)
+    function insertVideo($title, $description, $path, $image)
     {
         require('connexion.php');
-        $req = $database->prepare('INSERT INTO notes (title, description, path) VALUES (?,?,?)');
-        $req->execute(array($title, $description, $path));
+        $req = $database->prepare('INSERT INTO videos (title, description, path, image) VALUES (?,?,?,?)');
+        $req->execute(array($title, $description, $path, $image));
         $req->closeCursor();
     }
 
@@ -12,6 +12,16 @@
         require('connexion.php');
         $req = $database->prepare('SELECT * FROM videos');
         $req->execute();
+        $data = $req->fetchALL(PDO::FETCH_OBJ);
+        return $data;
+        $req->closeCursor();
+    }
+
+    function getVideo($id)
+    {
+        require('connexion.php');
+        $req = $database->prepare('SELECT * FROM videos WHERE id = ?');
+        $req->execute(array($id));
         $data = $req->fetchALL(PDO::FETCH_OBJ);
         return $data;
         $req->closeCursor();
@@ -30,6 +40,16 @@
     	$req = $database->prepare('SELECT * FROM notes WHERE videoId = ?');
     	$req->execute(array($videoId));
     	$data = $req->fetchALL(PDO::FETCH_OBJ);
+        return $data;
+        $req->closeCursor(); 
+    }
+
+    function getVideoNotesAVG($videoId)
+    {
+        require('connexion.php');
+        $req = $database->prepare('SELECT AVG(note) AS rate FROM notes WHERE videoId = ?');
+        $req->execute(array($videoId));
+        $data = $req->fetchALL(PDO::FETCH_OBJ);
         return $data;
         $req->closeCursor(); 
     }
