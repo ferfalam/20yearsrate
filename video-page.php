@@ -15,7 +15,7 @@
 		if ((!empty($note)) and (searchNotes($videoId, getIp()) == null)) { 
 		// annuler la possibilité que l'utilisateur ait deje voté pour la video
 			$videoNote = insertNote(getIp(), $note, $videoId);
-			header("Location: /video-page.php?videoId=".$videoId);
+			header("Location: video-page.php?videoId=".$videoId);
 		}
 	}
 
