@@ -13,7 +13,7 @@
         $videosTableReq = $database->prepare('CREATE TABLE IF NOT EXISTS `videos_catalogue`.`videos` ( `id` INT NOT NULL AUTO_INCREMENT , `title` VARCHAR(250) NOT NULL , `description` TEXT NOT NULL , `path` VARCHAR(250) NOT NULL , `image` VARCHAR(250) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;');
         $videosTableReq-> execute();
 
-        $notesTableReq = $database->prepare('CREATE TABLE IF NOT EXISTS `videos_catalogue`.`notes` ( `id` INT NOT NULL AUTO_INCREMENT , `voterIP` VARCHAR(25) NOT NULL , `note` INT(2) NOT NULL , `videoId` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB');
+        $notesTableReq = $database->prepare('CREATE TABLE IF NOT EXISTS `videos_catalogue`.`notes` ( `id` INT NOT NULL AUTO_INCREMENT , `voterIP` VARCHAR(25) NOT NULL , `note` INT(2) NOT NULL , `videoId` INT NOT NULL , `voteDate` DATETIME, PRIMARY KEY (`id`)) ENGINE = InnoDB');
         $notesTableReq-> execute();
 
 

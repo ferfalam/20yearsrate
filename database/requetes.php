@@ -29,8 +29,8 @@
 
     function insertNote($voterIP, $note, $videoId){
     	require('connexion.php');
-    	$req = $database->prepare('INSERT INTO notes (voterIP, note, videoId) VALUES (?,?,?)');
-    	$req->execute(array($voterIP, $note, $videoId));
+    	$req = $database->prepare('INSERT INTO notes (voterIP, note, videoId, voteDate) VALUES (?,?,?,?)');
+    	$req->execute(array($voterIP, $note, $videoId, date("Y-m-d h:i:sa")));
     	$req->closeCursor();
     }
 
